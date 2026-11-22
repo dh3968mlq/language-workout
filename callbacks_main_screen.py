@@ -22,8 +22,8 @@ def cre_callbacks(app, engine, prefix, lspec, adminuser=False):
     # -- Initial load callback
     # -- A separate callback, since the main callback has allow_duplicate=True
     @app.callback(
-        Output(prefix+"root-button-get-foreign-word","n_clicks"), # -- trigger an initial word selection
         Output(prefix+"root-select-show-what", "data"),          
+        Output(prefix+"root-select-show-what", "value"), # -- triggers main callback for an initial word selection       
     )
     def initialise():
         # -- list of wordlists
@@ -40,7 +40,7 @@ def cre_callbacks(app, engine, prefix, lspec, adminuser=False):
         listlst = [{"value":x["value"],"label":x["label"] + f" ({x['n']})"} for x in listlst]
         whatdata=[{"value":"All", "label":"All"},
                   {"value":"Phrases", "label":"Phrases"}] + listlst
-        return 0, whatdata
+        return whatdata, "All"
     # ------------------------------------------------------------------
     # -- Callback to deal with everything on main screen
     outputs = [
